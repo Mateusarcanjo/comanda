@@ -4,6 +4,8 @@ import 'package:comanda/dm_module.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class AdicionarItem extends StatefulWidget {
   const AdicionarItem({super.key});
 
@@ -14,7 +16,12 @@ class AdicionarItem extends StatefulWidget {
 class _AdicionarItemState extends State<AdicionarItem> {
   List<Categorias> categorias = [];
   List<Widget> n_categoria = [];
-  carrega_categorias() {Uri.http(jsonDecode('${prefs.getString('user')}')[0]['IP'], '/ListarProdutoComanda', {'id_comanda': widget.id_comanda}),}
+
+  carrega_categorias() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final response = await http.get(Uri.http(jsonDecode('${prefs.getString('user')}')[0]['IP'], '/ListarProdutoComanda'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
