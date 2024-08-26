@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings, unused_local_variable, avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
@@ -9,6 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
+=======
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
+import 'dart:convert';
+import 'package:comanda/dm_module.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+>>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
 
 class AdicionarItem extends StatefulWidget {
   const AdicionarItem({super.key});
@@ -18,6 +27,7 @@ class AdicionarItem extends StatefulWidget {
 }
 
 class _AdicionarItemState extends State<AdicionarItem> {
+<<<<<<< HEAD
   String basicAuth = 'Basic ${base64Encode(utf8.encode('testserver:testserver'))}';
   List<Categorias> categorias = [];
   bool lista_grid = false;
@@ -356,10 +366,19 @@ class _AdicionarItemState extends State<AdicionarItem> {
         print(e);
       }
     }
+=======
+  List<Categorias> categorias = [];
+  List<Widget> n_categoria = [];
+
+  carrega_categorias() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final response = await http.get(Uri.http(jsonDecode('${prefs.getString('user')}')[0]['IP'], '/ListarProdutoComanda'));
+>>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
@@ -409,5 +428,29 @@ class _AdicionarItemState extends State<AdicionarItem> {
             ),
           ),
         ));
+=======
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.flight)),
+              Tab(icon: Icon(Icons.directions_transit)),
+              Tab(icon: Icon(Icons.directions_car)),
+            ],
+          ),
+          title: Text('Tabs Demo'),
+        ),
+        body: TabBarView(
+          children: [
+            Icon(Icons.flight, size: 350),
+            Icon(Icons.directions_transit, size: 350),
+            Icon(Icons.directions_car, size: 350),
+          ],
+        ),
+      ),
+    );
+>>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
   }
 }

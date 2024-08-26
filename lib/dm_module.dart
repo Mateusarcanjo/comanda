@@ -141,6 +141,7 @@ class Categorias {
   @override
   int get hashCode => ID_CATEGORIA.hashCode ^ DESCRICAO.hashCode ^ ICONE.hashCode;
 }
+<<<<<<< HEAD
 
 class Produto {
   final int ID_PRODUTO;
@@ -200,3 +201,5 @@ class Produto {
     return ID_PRODUTO.hashCode ^ DESCRICAO.hashCode ^ PRECO.hashCode ^ QTD.hashCode;
   }
 }
+=======
+>>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
