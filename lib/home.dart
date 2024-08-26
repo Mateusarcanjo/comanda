@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // ignore_for_file: prefer_const_constructors, avoid_print, unused_catch_clause, non_constant_identifier_names, prefer_interpolation_to_compose_strings
-=======
-// ignore_for_file: prefer_const_constructors, avoid_print, unused_catch_clause, non_constant_identifier_names
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
 
 import 'dart:io';
 import 'dart:async';
@@ -14,10 +10,7 @@ import 'package:lan_scanner/lan_scanner.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-<<<<<<< HEAD
 import 'package:animated_icon/animated_icon.dart';
-=======
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -27,7 +20,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-<<<<<<< HEAD
   bool ativo = false;
   IconData icone = Icons.wifi;
   double? progress = 0.0;
@@ -47,14 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
     resolve(Theme.of(context).platform);
     super.didChangeDependencies();
   }
-=======
-  final TextEditingController _id_comanda = TextEditingController();
-  final List<Host> _hosts = <Host>[];
-  final List _msg = [];
-  var _servidor = '';
-
-  double? progress = 0.0;
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
 
   Future<bool> scan() async {
     setState(() {
@@ -73,7 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return true;
   }
 
-<<<<<<< HEAD
   resolve(TargetPlatform platforma) async {
     ativo = false;
     _servidor = '';
@@ -86,20 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       String servidor = jsonDecode('${prefs.getString('user')}')[0]['IP'];
       _servidor = 'Conectado em ' + jsonDecode('${prefs.getString('user')}')[0]['SERVIDOR'];
-=======
-  resolve() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('user')!);
-    if (prefs.getString('user')!.isNotEmpty) {
-      String servidor = jsonDecode('${prefs.getString('user')}')[0]['IP'];
-      _servidor = jsonDecode('${prefs.getString('user')}')[0]['SERVIDOR'];
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
 
       print(_hosts.length);
       try {
         final response = await http.get(Uri.http(servidor, '/Ping'));
         print(response.body);
-<<<<<<< HEAD
         setState(() {
           progress = 1;
           icone = Icons.wifi;
@@ -109,12 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
           prefs.remove('user');
           resolve(platforma);
           ativo = false;
-=======
-      } on SocketException catch (error) {
-        setState(() {
-          prefs.remove('user');
-          resolve();
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
           print('😱 ${error.message}');
         });
       } on HttpException catch (error) {
@@ -127,44 +95,26 @@ class _MyHomePageState extends State<MyHomePage> {
         print("Bad response format 👎");
       }
     } else {
-<<<<<<< HEAD
       if (platforma == TargetPlatform.android && await scan()) {
         for (var i = 0; i < _hosts.length; i++) {
           try {
             if (_hosts[i].pingTime!.inMilliseconds > 0) {
-=======
-      if (await scan()) {
-        for (var i = 0; i < _hosts.length; i++) {
-          try {
-            if (_hosts[i].pingTime!.inMilliseconds > 2) {
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
               print('${_hosts[i].internetAddress.address}|${_hosts[i].pingTime?.inMilliseconds}');
               final response = await http.get(Uri.http(_hosts[i].internetAddress.address, '/Ping'));
               if (response.statusCode != 200) throw HttpException('${response.statusCode}');
               Map<String, dynamic> json = jsonDecode(response.body);
 
-<<<<<<< HEAD
               //print(json);
 
               setState(() {
                 json['RESULT'][0].addAll({'IP': _hosts[i].internetAddress.address});
                 _servidor = 'Conectado em ' + json['RESULT'][0]['SERVIDOR'];
-=======
-              print(json);
-
-              setState(() {
-                json['RESULT'][0].addAll({'IP': _hosts[i].internetAddress.address});
-                _servidor = json['RESULT'][0]['SERVIDOR'];
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
                 String user = jsonEncode(json['RESULT']);
                 prefs.remove('user');
                 prefs.setString('user', user);
                 progress = 1.0;
-<<<<<<< HEAD
                 icone = Icons.wifi;
                 ativo = true;
-=======
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
               });
             }
           } on SocketException catch (error) {
@@ -186,7 +136,6 @@ class _MyHomePageState extends State<MyHomePage> {
         if (_servidor == '') {
           setState(() {
             _servidor = 'Nao foi Possivel encontrar o servidor';
-<<<<<<< HEAD
             icone = Icons.wifi_off;
           });
         }
@@ -210,27 +159,10 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
     ativo = true;
-=======
-          });
-        }
-      } else {
-        setState(() {
-          _servidor = 'Nao foi Possivel encontrar o servidor';
-        });
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    resolve();
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
   }
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     final platform = Theme.of(context).platform;
     return Scaffold(
       appBar: AppBar(
@@ -257,11 +189,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
               ))
         ],
-=======
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Comanda'),
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
       ),
       body: SafeArea(
         child: Column(children: [
@@ -278,11 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-<<<<<<< HEAD
                     Text(" $_servidor"),
-=======
-                    Text(" Conectado em $_servidor"),
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
                   ],
                 ),
           Expanded(
@@ -344,11 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             SizedBox(height: 7),
                           ],
                         ),
-<<<<<<< HEAD
                       )))),
-=======
-                      ))))
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
         ]),
       ),
     );

@@ -18,11 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
       title: 'Demo Comanda',
-=======
-      title: 'Demo App',
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
       home: MyHomePage(),
     );
   }

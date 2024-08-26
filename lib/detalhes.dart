@@ -32,16 +32,12 @@ class _detalhes_comanda extends State<detalhes_comanda> {
         Uri.http(jsonDecode('${prefs.getString('user')}')[0]['IP'], '/ListarProdutoComanda', {'id_comanda': widget.id_comanda}),
         headers: {'authorization': basicAuth},
       );
-<<<<<<< HEAD
       List _dados;
       try {
         _dados = jsonDecode(response.body);
       } catch (e) {
         _dados = [];
       }
-=======
-      var _dados = jsonDecode(response.body);
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
       setState(() {
         itens_comanda = List.generate(_dados.length, (i) {
           total_pedido = total_pedido + _dados[i]['VALOR_TOTAL'].toDouble();
@@ -76,16 +72,7 @@ class _detalhes_comanda extends State<detalhes_comanda> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-<<<<<<< HEAD
                   _navigateAndDisplaySelection(context);
-=======
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AdicionarItem(),
-                    ),
-                  );
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
                 },
                 child: Icon(
                   Icons.add,
@@ -203,7 +190,6 @@ class _detalhes_comanda extends State<detalhes_comanda> {
       )),
     );
   }
-<<<<<<< HEAD
 
   Future<void> _navigateAndDisplaySelection(BuildContext context) async {
     List<Produto> _Produtos = [];
@@ -217,6 +203,4 @@ class _detalhes_comanda extends State<detalhes_comanda> {
       print(val); //you get details from screen2 here
     });
   }
-=======
->>>>>>> 2c0266186783729bc4b27b405cd4cc70e73eb5bb
 }

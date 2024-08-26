@@ -1,79 +1,69 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unused_import, prefer_const_literals_to_create_immutables, non_constant_identifier_names
-import 'dart:io';
-import 'package:flutter/material.dart';
+// ignore_for_file: non_constant_identifier_names, unnecessary_cast
 
-void main() {
-  runApp(MyHomePage());
-}
+import 'dart:convert';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Produto {
+  final int ID_PRODUTO;
+  final String DESCRICAO;
+  final double PRECO;
+  final double QTD;
+  Produto({
+    required this.ID_PRODUTO,
+    required this.DESCRICAO,
+    required this.PRECO,
+    required this.QTD,
+  });
+
+  Produto copyWith({
+    int? ID_PRODUTO,
+    String? DESCRICAO,
+    double? PRECO,
+    double? QTD,
+  }) {
+    return Produto(
+      ID_PRODUTO: ID_PRODUTO ?? this.ID_PRODUTO,
+      DESCRICAO: DESCRICAO ?? this.DESCRICAO,
+      PRECO: PRECO ?? this.PRECO,
+      QTD: QTD ?? this.QTD,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'ID_PRODUTO': ID_PRODUTO,
+      'DESCRICAO': DESCRICAO,
+      'PRECO': PRECO,
+      'QTD': QTD,
+    };
+  }
+
+  factory Produto.fromMap(Map<String, dynamic> map) {
+    return Produto(
+      ID_PRODUTO: map['ID_PRODUTO'].toInt() as int,
+      DESCRICAO: map['DESCRICAO'] as String,
+      PRECO: double.parse('${map['PRECO']}') as double,
+      QTD: double.parse('${map['QTD']}') as double,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Produto.fromJson(String source) => Produto.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[
-    Icon(
-      Icons.call,
-      size: 150,
-    ),
-    Icon(
-      Icons.camera,
-      size: 150,
-    ),
-    Icon(
-      Icons.chat,
-      size: 150,
-    ),
-  ];
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  String toString() {
+    return 'Prodeuto(ID_PRODUTO: $ID_PRODUTO, DESCRICAO: $DESCRICAO, PRECO: $PRECO, QTD: $QTD)';
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text(
-              'Comanda',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          body: _pages.elementAt(_selectedIndex),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.shifting,
-            selectedIconTheme: IconThemeData(color: Colors.amberAccent, size: 40),
-            selectedItemColor: Colors.amberAccent,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            onTap: _onItemTapped,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.call),
-                label: 'Calls',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.camera),
-                label: 'Camera',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat),
-                label: 'Chats',
-              ),
-            ],
-          ),
-        ));
+  bool operator ==(covariant Produto other) {
+    if (identical(this, other)) return true;
+
+    return other.ID_PRODUTO == ID_PRODUTO && other.DESCRICAO == DESCRICAO && other.PRECO == PRECO && other.QTD == QTD;
+  }
+
+  @override
+  int get hashCode {
+    return ID_PRODUTO.hashCode ^ DESCRICAO.hashCode ^ PRECO.hashCode ^ QTD.hashCode;
   }
 }
